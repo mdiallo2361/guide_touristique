@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
+import 'pages/redirection_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,45 +16,31 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    );
-  }
-}
+      title: "Guide Touristique",
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+        scaffoldBackgroundColor: Color(0xFFF5F7FA),
 
-class HomePage extends StatelessWidget {
-  final FirebaseFirestore db = FirebaseFirestore.instance;
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+        ),
 
-  // 🔥 Fonction pour ajouter des lieux
-  void addPlaces() async {
-    await db.collection("places").add({
-      "name": "Mosquée Hassan II",
-      "city": "Casablanca",
-      "description": "Grande mosquée au bord de l'océan",
-      "rating": 4.8,
-    });
-
-    await db.collection("places").add({
-      "name": "Jardin Majorelle",
-      "city": "Marrakech",
-      "description": "Jardin botanique célèbre",
-      "rating": 4.7,
-    });
-
-    print("Places ajoutées 🔥");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Guide Touristique"),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: addPlaces,
-          child: Text("Ajouter des lieux"),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            minimumSize: Size(double.infinity, 50),
+          ),
         ),
       ),
+      home: RedirectionPage(),
     );
   }
 }
